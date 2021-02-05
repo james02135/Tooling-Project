@@ -7,7 +7,10 @@ from wtforms.validators import DataRequired, EqualTo, Length
 
 class RegisterForm(Form):
     name = TextField(
-        'ID Number', validators=[DataRequired(), Length(min=6, max=25)]
+        'Name', validators=[DataRequired(), Length(min=6, max=25)]
+    )
+    ID = TextField (
+        'ID Number', validators=[DataRequired(), Length(min=8, max=8)]
     )
     email = TextField(
         'Email', validators=[DataRequired(), Length(min=6, max=40)]
