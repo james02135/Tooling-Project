@@ -8,20 +8,9 @@ import logging
 from logging import Formatter, FileHandler
 from forms import *
 import os
+from app_config import db, app
+from tooling_project.models import Result, User
 
-
-
-#----------------------------------------------------------------------------#
-# App Config.
-#----------------------------------------------------------------------------#
-
-app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-
-#from models import Result, User
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -86,8 +75,7 @@ def internal_error(error):
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('errors/404.html'), 404
-
-if not app.debug:
+    if not app.debug:models
     file_handler = FileHandler('error.log')
     file_handler.setFormatter(
         Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
