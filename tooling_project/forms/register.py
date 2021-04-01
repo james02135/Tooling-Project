@@ -3,37 +3,42 @@ from forms import RegisterForm
 import hashlib
 import psycopg2
 
-class Register():
+
+class Register:
 
     temp_name = request.form.get("name", "")
     temp_ID = request.form.get("ID", "")
     temp_email = request.form.get("email", "")
-    temp_password = request.form.get("password", )
+    temp_password = request.form.get(
+        "password",
+    )
     n_message = "Please fill in your name"
 
     # check for blanks
     if temp_name == "":
-        return render_template("forms/register.html", message = n_message)
+        return render_template("forms/register.html", message=n_message)
     else:
         name = temp_name
 
     if temp_ID == "":
         i_message = "Please fill in your Student ID Number"
-        return render_template("forms/register.html", message = i_message)
+        return render_template("forms/register.html", message=i_message)
     else:
         ID = temp_ID
 
     if temp_email == "":
         e_message = "Please fill in your email address"
-        return render_template("forms/register.html", message = e_message)
+        return render_template("forms/register.html", message=e_message)
     else:
         email = temp_email
 
     if temp_password == "":
         p_message = "Please fill in your password"
-        return render_template("register.html", message = p_message)
+        return render_template("register.html", message=p_message)
     else:
-        p_hashed = hashlib.sha256(temp_password.encode()) #hash the password the user entered
+        p_hashed = hashlib.sha256(
+            temp_password.encode()
+        )  # hash the password the user entered
         hashed_password = p_hashed.hexdigest()
 
     # database insert
@@ -42,7 +47,9 @@ class Register():
     dbname = "intool"
     user = "james"
     pw = ""
-    db_conn = psycopg2.connect(host=host, port=port, dbname=dbname, user=user, password=pw)
+    db_conn = psycopg2.connect(
+        host=host, port=port, dbname=dbname, user=user, password=pw
+    )
     db_cursor = db_conn.cursor()
 
     # We take the time to build our SQL query string so that
@@ -66,9 +73,7 @@ class Register():
         db_conn.commit()
     except psycopg2.Error as e:
         t_message = "Database error: " + e + "/n SQL: " + s
-        return render_template("register.html", message = t_message)
+        return render_template("register.html", message=t_message)
 
     t_message = "Your user account has been added."
-    return render_template("register.html", message = t_message)
-
-
+    return render_template("register.html", message=t_message)
