@@ -2,15 +2,15 @@
 # Imports
 # ----------------------------------------------------------------------------#
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session, logging
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
 from forms import *
 import os
 from app_config import db, app
-
-# from tooling_project.register import Register
+from models import User
+import hashlib
 
 
 # Automatically tear down SQLAlchemy.
@@ -47,7 +47,7 @@ def about():
     return render_template("pages/about.html")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm(request.form)
     return render_template("forms/login.html", form=form)
@@ -55,53 +55,20 @@ def login():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
-    print("got here")
+    if request.method == "POST":
+        name = request.form['name']
+        ID = request.form['ID']
+        email = request.form['email']
+        temp_password = request.form['password']
+        p_hashed = hashlib.sha256(temp_password.encode()) #hash the entered password
+        password = p_hashed.hexdigest()
+        confirm = request.form['confirm']
+        register = User(id = ID, name = name, email = email, password = password)
+        db.session.add(register)
+        db.session.commit()
+        return redirect(url_for("login"))
     form = RegisterForm(request.form)
     return render_template("forms/register.html", form=form)
-    print("got here 2")
-    temp_password = request.form.password
-    p_hashed = hashlib.sha256(
-        temp_password.encode()
-    )  # hash the password the user entered
-    hashed_password = p_hashed.hexdigest()
-    print(hashed_password)
-
-    # database insert
-    host = "postgresql:///intool"
-    port = "5432"
-    dbname = "intool"
-    user = "james"
-    pw = ""
-    db_conn = psycopg2.connect(
-        host=host, port=port, dbname=dbname, user=user, password=pw
-    )
-    db_cursor = db_conn.cursor()
-
-    # We take the time to build our SQL query string so that
-    #   (a) we can easily & quickly read it
-    #   (b) we can easily & quickly edit or add/remote lines
-    #   The more complex the query, the greater the benefits
-    s = "INSERT INTO intool.users "
-    s += "("
-    s += "  name"
-    s += "  ID"
-    s += "  email"
-    s += ", hashed_password"
-    s += ") VALUES ("
-    s += " '" + name + "'"
-    s += " '" + ID + "'"
-    s += " '" + email + "'"
-    s += ",'" + hashed_password + "'"
-    s += ")"
-    db_cursor.execute(s)
-    try:
-        db_conn.commit()
-    except psycopg2.Error as e:
-        t_message = "Database error: " + e + "/n SQL: " + s
-        return render_template("register.html", message=t_message)
-
-    t_message = "Your user account has been added."
-    return render_template("register.html", message=t_message)
 
 
 @app.route("/forgot")
@@ -109,13 +76,13 @@ def forgot():
     form = ForgotForm(request.form)
     return render_template("forms/forgot.html", form=form)
 
-
+# ----------------------------------------------------------------------------#
 # Error handlers.
-
+# ----------------------------------------------------------------------------#
 
 @app.errorhandler(500)
 def internal_error(error):
-    # db_session.rollback()
+    db_session.rollback()
     return render_template("errors/500.html"), 500
 
 
