@@ -23,15 +23,11 @@ class RegisterForm(Form):
 
 
 class LoginForm(Form):
-    name = TextField(
-        "ID Number", [DataRequired()]
+    email = TextField(
+        "Email", [DataRequired()]
         )
     password = PasswordField(
         "Password", [DataRequired()]
         )
 
 
-class ForgotForm(Form):
-    email = TextField(
-        "Email", validators=[DataRequired(), Length(min=6, max=40)]
-        )
