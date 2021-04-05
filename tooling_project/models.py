@@ -1,7 +1,8 @@
 from sqlalchemy.dialects.postgresql import JSON
-from app_config import db
+from . import db
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = "intool"
 
     id = db.Column(db.Integer, primary_key=True)
