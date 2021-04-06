@@ -2,6 +2,8 @@ from sqlalchemy.dialects.postgresql import JSON
 from . import db
 from flask_login import UserMixin
 
+# User model corresponding to postgresql constraints
+# UserMixin allows Flask-Login to grab the user data
 class User(UserMixin, db.Model):
     __tablename__ = "intool"
 
@@ -10,7 +12,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(30))
 
-    def __init__(self, id = None, name=None, email=None, password=None):
+    def __init__(self, id=None, name=None, email=None, password=None):
         self.id = id
         self.name = name
         self.email = email
