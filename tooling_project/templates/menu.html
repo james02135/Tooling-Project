@@ -1,0 +1,9 @@
+{% extends 'form.html' %}
+{% block title %}New Project Menu{% endblock %}
+{% block content %}
+  <form method="post" class="form">
+    <h3 class="form-heading">New Project Menu <a href="{{ url_for('main.home') }}" title="Back to homepage"><em class="fa fa-home pull-right"></em></a></h3>
+    {{ form.project_name(class_ = 'form-control first-input id="project_name"', placeholder = form.project_name.label.text, required = true, autofocus = true) }}
+    <input type="submit" value="Launch" class="btn btn-primary disabled btn-lg btn-block">
+  </form>
+{% endblock %}

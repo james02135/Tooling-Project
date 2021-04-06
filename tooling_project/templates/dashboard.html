@@ -51,10 +51,10 @@
           <a class="navbar-brand" href="/">Intool</a>
         </div>
         <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li {% if request.endpoint == 'home' %} class="active" {% endif %}><a href="{{ url_for('main.home') }}">Home</a></li>
-          </ul>
           <ul class="nav navbar-nav pull-right">
+            <li class="nav-item">
+              <a>{{ name }} - {{ ID }}</a> 
+            </li>
             <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -76,9 +76,10 @@
       {% endwith %}
 
       <div class="page-header">
-        <h1>Welcome {{ name }} {{ID}} to Your Personal Dashboard!</h1>
+        <h1>Welcome to Your Personal Dashboard!</h1>
       </div>
-      <p class="lead">Need to do something with this </p>
+      <p class="lead">Start a New Project </p>
+      <a href="{{ url_for('auth.menu') }}" class="btn btn-default" role="button">New Project</a>
       
     </main>
 
@@ -86,7 +87,7 @@
 
   <div id="footer">
     <div class="container">
-      <p>Intool &copy; All Rights Reserved.</p>
+      <p>Intool developed by James Richardson</p>
       {% block footer %}{% endblock %}
     </div>
   </div>
