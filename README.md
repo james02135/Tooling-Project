@@ -4,8 +4,9 @@ This is a Graphical User Interface tool designed to assist the student and lectu
 
 ## Launch tool locally
 
-$ Within the Tooling-Project/tooling_project folder
-$ Enter into a terminal ---->
+Within the Tooling-Project/tooling_project folder
+
+Enter into a terminal ---->
 
 $ python3 -m venv auth
 $ source auth/bin/activate
