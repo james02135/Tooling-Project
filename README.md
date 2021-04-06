@@ -4,9 +4,9 @@ This is a Graphical User Interface tool designed to assist the student and lectu
 
 ## Launch tool locally
 
-Within the Tooling-Project/tooling_project folder
+### Within the Tooling-Project/tooling_project folder
 
-Enter into a terminal ---->
+### Enter into a terminal ---->
 
 $ python3 -m venv auth
 
@@ -18,6 +18,6 @@ $ export FLASK_DEBUG=1
 
 $ flask run
 
-## App will begin running locally on http://localhost:5000/
+### App will begin running locally on http://localhost:5000/
 
 
