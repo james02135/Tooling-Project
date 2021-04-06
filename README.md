@@ -9,9 +9,13 @@ Within the Tooling-Project/tooling_project folder
 Enter into a terminal ---->
 
 $ python3 -m venv auth
+
 $ source auth/bin/activate
+
 $ export FLASK_APP=tooling_project
+
 $ export FLASK_DEBUG=1
+
 $ flask run
 
 ## App will begin running locally on http://localhost:5000/
