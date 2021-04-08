@@ -8,6 +8,7 @@
     {{ form.email(class_ = 'form-control id="email"', placeholder = form.email.label.text, required = true) }}
     {{ form.password(class_ = 'form-control id="password"', placeholder = form.password.label.text, required = true) }}
     {{ form.confirm(class_ = 'form-control last-input id="confirm"', placeholder = form.confirm.label.text, required = true) }}
+    {{ form.csrf_token }}
     <p class="pull-left"><a href="{{ url_for('auth.login') }}">Login</a></p>
     <input type="submit" value="Register" class="btn btn-primary btn-lg btn-block">
   </form>
