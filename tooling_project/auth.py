@@ -64,7 +64,12 @@ def register_post():
     ID = request.form.get("ID")
     email = request.form.get("email")
     password = request.form.get("password")
+    confirm = request.form.get("confirm")
 
+    # if the confirmation password doesn't match the password
+    if not confirm == password:
+        flash("Passwords do not match.")
+        return redirect(url_for("auth.register"))
     # check to see if the email is already being used
     user = User.query.filter_by(email=email).first()
 
@@ -72,7 +77,7 @@ def register_post():
         flash("Email address already in use.")
         return redirect(url_for("auth.register"))
 
-    # create a new user, and hash the password
+    # if the entered password and confirm match, create a new user, and hash the password
     new_user = User(
         id=ID,
         name=name,
@@ -85,6 +90,12 @@ def register_post():
     db.session.commit()
     return redirect(url_for("auth.login"))
 
+
+@auth.route("/profile")
+def profile():
+    form = ProfileForm(request.form)
+    return render_template("profile.html", form=form)
+    
 
 @auth.route("/menu")
 def menu():
