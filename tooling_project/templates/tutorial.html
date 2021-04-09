@@ -72,20 +72,21 @@
 
     <!-- Begin page content -->
     <main id="content" role="main" class="container">
-
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-block alert-error fade in">
-              <a class="close" data-dismiss="alert">&times;</a>
-              {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-
-      {% block content %}{% endblock %}
-      
+        <div>
+            <p>
+                <h1>
+                    Tutorials
+                </h1>
+            </p>
+            <h3>
+                Here are a few walkthroughs to help your setup
+            </h3>
+        </div>  
+        <ul>
+            <li>
+                <a href="https://docs.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account" target="_blank" rel="noopener noreferrer">Signup for a new GitHub account</a>
+            </li>
+        </ul>
     </main>
 
   </div>

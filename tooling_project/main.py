@@ -19,6 +19,11 @@ def about():
     return render_template("about.html")
 
 
+@main.route("/tutorial")
+def tutorial():
+    return render_template("tutorial.html")
+
+
 @main.route("/dashboard")
 @login_required
 def dashboard():
