@@ -63,6 +63,8 @@ def register_post():
     name = request.form.get("name")
     ID = request.form.get("ID")
     email = request.form.get("email")
+    github_username = request.form.get("github_username")
+    github_token = request.form.get("github_token")
     password = request.form.get("password")
     confirm = request.form.get("confirm")
 
@@ -83,6 +85,8 @@ def register_post():
         name=name,
         email=email,
         password=generate_password_hash(password, method="sha256"),
+        github_username=github_username,
+        github_token=github_token
     )
 
     # add the new user to the database
@@ -91,19 +95,10 @@ def register_post():
     return redirect(url_for("auth.login"))
 
 
-@auth.route("/profile")
-def profile():
-    form = ProfileForm(request.form)
-    return render_template("profile.html", form=form)
-    
-
 @auth.route("/menu")
 def menu():
     form = MenuForm(request.form)
     return render_template("menu.html", form=form)
-
-
-
 
 
 @auth.route("/logout")

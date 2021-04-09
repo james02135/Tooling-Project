@@ -3,13 +3,46 @@
 {% block content %}
   <form method="post" class="form">
     <h3 class="form-heading">Register <a href="{{ url_for('main.home') }}" title="Back to homepage"><em class="fa fa-home pull-right"></em></a></h3>
+    <div>
+      <p>
+        <h4>
+          Prerequisites
+        </h4>
+        <ul>
+          <li>
+            Your Student ID number
+          </li>
+          <li>
+            Your Student Email address   
+          </li>
+          <li>
+            A GitHub account 
+          </li>
+          <li>
+            Your GitHub username
+          </li>
+          <li>
+            Your GitHub token
+          </li>
+        </ul>
+        <h4>
+          Tutorials
+        </h4>
+        <ul>
+          <li>
+            Follow this link to see walkthroughs of how to setup your GitHub account <a href="{{ url_for('main.tutorial') }}" title="Tutorial Page"><em class="fa fa-question fa-lg"></em></a>
+          </li>
+        </ul>
+      </p>
+    </div>
     {{ form.name(class_ = 'form-control first-input id="name"', placeholder = form.name.label.text, required = true, autofocus = true) }}
     {{ form.ID(class_ = 'form-control id="ID"', placeholder = form.ID.label.text, required = true) }}
     {{ form.email(class_ = 'form-control id="email"', placeholder = form.email.label.text, required = true) }}
+    {{ form.github_username(class_ = 'form-control id="github_username"', placeholder = form.github_username.label.text, required=true)}}
+    {{ form.github_token(class_ = 'form-control id="github_token"', placeholder = form.github_token.label.text, required=true)}}
     {{ form.password(class_ = 'form-control id="password"', placeholder = form.password.label.text, required = true) }}
     {{ form.confirm(class_ = 'form-control last-input id="confirm"', placeholder = form.confirm.label.text, required = true) }}
     {{ form.csrf_token }}
-    <p class="pull-left"><a href="{{ url_for('auth.login') }}">Login</a></p>
     <input type="submit" value="Register" class="btn btn-primary btn-lg btn-block">
   </form>
 {% endblock %}

@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, RadioField
+from wtforms import TextField, PasswordField
 from wtforms.validators import DataRequired, EqualTo, Length
 
 # Class to set the register form with the required variables
@@ -13,7 +13,8 @@ class RegisterForm(Form):
         "Password", validators=[DataRequired(), EqualTo("confirm", message="Passwords must match"), Length(min=6, max=40)]
     )
     confirm = PasswordField("Repeat Password",[DataRequired()])
-    lecturer = RadioField()
+    github_username = TextField("GitHub Username", validators=[DataRequired()])
+    github_token = TextField("GitHub Token", validators=[DataRequired()])
 
 
 # Class to set the login form with the required variables
@@ -22,11 +23,9 @@ class LoginForm(Form):
     password = PasswordField('Password', [DataRequired()])
 
 
-# Class to create a profile for project creation
-class ProfileForm(Form):
-    github_username = TextField('GitHub Username', [DataRequired()])
-
-
 # Class to set the new project menu form with the required variables
 class MenuForm(Form):
     project_name = TextField('Project Name', [DataRequired()])
+
+
+
