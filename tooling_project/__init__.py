@@ -5,7 +5,7 @@ from flask_wtf.csrf import CSRFProtect
 import secrets
 import os
 
-
+csrf = CSRFProtect()
 db = SQLAlchemy()
 
 # Responsible for app creation
@@ -15,7 +15,6 @@ def create_app():
     # creating the secret key
     secret_key = secrets.token_hex(16)
     # protecting the app against Cross-Site Request Forgery (CSRF)
-    csrf = CSRFProtect()
     csrf.init_app(app)
     app.config["SECRET_KEY"] = secret_key
     # setting the database for SQLAlchemy
