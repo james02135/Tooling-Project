@@ -13,6 +13,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 import logging
+import requests
+import json
 from logging import Formatter, FileHandler
 from .models import User
 from .forms import *
@@ -99,6 +101,30 @@ def register_post():
 def menu():
     form = MenuForm(request.form)
     return render_template("menu.html", form=form)
+
+@auth.route("/menu", methods=['POST'])
+def menu_post():
+    
+    ID = request.form.get("ID")
+    project_name = request.form.get("project_name")
+    # Retrieve the User from the database
+    user = User.query.filter_by(id=ID).first()
+    # Get the User's GitHub token
+    token = user.github_token
+    # Send the POST request to the GitHub api
+    url = "https://api.github.com/user/repos"
+    payload= {
+        "name": project_name,
+        "description": "for school",
+        "auto_init": "true"
+    }
+    headers = {
+    'Authorization': f'token {token}',
+    'Content-Type': 'text/plain',
+    'Cookie': '_octo=GH1.1.1061749589.1617981576; logged_in=no'
+    }
+    response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+    return redirect(url_for("main.dashboard"))
 
 
 @auth.route("/logout")

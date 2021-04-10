@@ -25,6 +25,9 @@ class LoginForm(Form):
 
 # Class to set the new project menu form with the required variables
 class MenuForm(Form):
+    ID = TextField(
+        "Student ID Number", validators=[DataRequired(), Length(min=8, max=8)]
+    )
     project_name = TextField('Project Name', [DataRequired()])
 
 

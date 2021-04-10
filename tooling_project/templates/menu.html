@@ -2,8 +2,10 @@
 {% block title %}New Project Menu{% endblock %}
 {% block content %}
   <form method="post" class="form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <h3 class="form-heading">New Project Menu <a href="{{ url_for('main.home') }}" title="Back to homepage"><em class="fa fa-home pull-right"></em></a></h3>
+    {{ form.ID(class_ = 'form-control id="ID"', placeholder = form.ID.label.text, required = true) }}
     {{ form.project_name(class_ = 'form-control first-input id="project_name"', placeholder = form.project_name.label.text, required = true, autofocus = true) }}
-    <input type="submit" value="Launch" class="btn btn-primary disabled btn-lg btn-block">
+    <input type="submit" value="Launch" class="btn btn-primary btn-lg btn-block">
   </form>
 {% endblock %}
