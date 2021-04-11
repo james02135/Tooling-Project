@@ -12,7 +12,7 @@ $ python3 -m venv auth
 
 $ source auth/bin/activate
 
-$ pip install flask flask-sqlalchemy flask-login flask-wtf
+$ pip install flask flask-sqlalchemy flask-login flask-wtf pytest requests
 
 $ export FLASK_APP=tooling_project
 
