@@ -1,1 +1,1 @@
-web: gunicorn intool_project:app
+web: gunicorn __init__:app
