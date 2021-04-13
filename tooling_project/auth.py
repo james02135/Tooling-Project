@@ -21,7 +21,7 @@ from .forms import *
 from . import db
 
 
-#All routes that require authentication
+# All routes that require authentication
 auth = Blueprint("auth", __name__)
 
 
@@ -88,7 +88,7 @@ def register_post():
         email=email,
         password=generate_password_hash(password, method="sha256"),
         github_username=github_username,
-        github_token=github_token
+        github_token=github_token,
     )
 
     # add the new user to the database
@@ -102,9 +102,10 @@ def menu():
     form = MenuForm(request.form)
     return render_template("menu.html", form=form)
 
-@auth.route("/menu", methods=['POST'])
+
+@auth.route("/menu", methods=["POST"])
 def menu_post():
-    
+
     ID = request.form.get("ID")
     project_name = request.form.get("project_name")
     # Retrieve the User from the database
@@ -113,17 +114,14 @@ def menu_post():
     token = user.github_token
     # Send the POST request to the GitHub api
     url = "https://api.github.com/user/repos"
-    payload= {
-        "name": project_name,
-        "description": "for school",
-        "auto_init": "true"
-    }
+    payload = {"name": project_name, "description": "for school", "auto_init": "true"}
     headers = {
-    'Authorization': f'token {token}',
-    'Content-Type': 'text/plain',
-    'Cookie': '_octo=GH1.1.1061749589.1617981576; logged_in=no'
+        "Authorization": f"token {token}",
+        "Content-Type": "text/plain",
+        "Cookie": "_octo=GH1.1.1061749589.1617981576; logged_in=no",
     }
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+    print(response.text)
     return redirect(url_for("main.dashboard"))
 
 

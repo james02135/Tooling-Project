@@ -14,7 +14,15 @@ class User(UserMixin, db.Model):
     github_username = db.Column(db.String(120))
     github_token = db.Column(db.String(120))
 
-    def __init__(self, id=None, name=None, email=None, password=None, github_username=None, github_token=None):
+    def __init__(
+        self,
+        id=None,
+        name=None,
+        email=None,
+        password=None,
+        github_username=None,
+        github_token=None,
+    ):
         self.id = id
         self.name = name
         self.email = email
@@ -22,5 +30,5 @@ class User(UserMixin, db.Model):
         self.github_username = github_username
         self.github_token = github_token
 
-    def __repr__(self):
-        return "<id {}>".format(self.id)
+    # def __repr__(self):
+    #     return "<id {}>".format(self.id)

@@ -10,17 +10,22 @@ class RegisterForm(Form):
     )
     email = TextField("Email", validators=[DataRequired(), Length(min=6, max=40)])
     password = PasswordField(
-        "Password", validators=[DataRequired(), EqualTo("confirm", message="Passwords must match"), Length(min=6, max=40)]
+        "Password",
+        validators=[
+            DataRequired(),
+            EqualTo("confirm", message="Passwords must match"),
+            Length(min=6, max=40),
+        ],
     )
-    confirm = PasswordField("Repeat Password",[DataRequired()])
+    confirm = PasswordField("Repeat Password", [DataRequired()])
     github_username = TextField("GitHub Username", validators=[DataRequired()])
     github_token = TextField("GitHub Token", validators=[DataRequired()])
 
 
 # Class to set the login form with the required variables
 class LoginForm(Form):
-    email = TextField('Email', [DataRequired()])
-    password = PasswordField('Password', [DataRequired()])
+    email = TextField("Email", [DataRequired()])
+    password = PasswordField("Password", [DataRequired()])
 
 
 # Class to set the new project menu form with the required variables
@@ -28,7 +33,4 @@ class MenuForm(Form):
     ID = TextField(
         "Student ID Number", validators=[DataRequired(), Length(min=8, max=8)]
     )
-    project_name = TextField('Project Name', [DataRequired()])
-
-
-
+    project_name = TextField("Project Name", [DataRequired()])
