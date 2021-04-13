@@ -1,1 +1,1 @@
-web: gunicorn tooling_project:app
+web: gunicorn intool_project:app
