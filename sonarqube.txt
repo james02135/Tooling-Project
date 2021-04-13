@@ -1,0 +1,2 @@
+b44a8d5bf2e45006b7690926d610fb19994438ab
+sonar-scanner -Dsonar.login=admin -Dsonar.password=Beedo02135 -Dsonar.projectKey=tooling_project -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 
