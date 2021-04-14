@@ -1,11 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_wtf.csrf import CSRFProtect
+from flask_wtf.csrf import CsrfProtect
 import secrets
 import os
 
-csrf = CSRFProtect()
+csrf = CsrfProtect()
 db = SQLAlchemy()
 
 # Responsible for app creation
