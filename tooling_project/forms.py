@@ -4,11 +4,11 @@ from wtforms.validators import DataRequired, EqualTo, Length
 
 # Class to set the register form with the required variables
 class RegisterForm(Form):
-    name = TextField("Name", validators=[DataRequired(), Length(min=6, max=25)])
+    name = TextField("Name", validators=[DataRequired(), Length(min=6, max=100)])
     ID = TextField(
-        "Student ID Number", validators=[DataRequired(), Length(min=8, max=8)]
+        "Student ID Number", validators=[DataRequired(), Length(max=8)]
     )
-    email = TextField("Email", validators=[DataRequired(), Length(min=6, max=40)])
+    email = TextField("Email", validators=[DataRequired(), Length(min=6, max=100)])
     password = PasswordField(
         "Password",
         validators=[
@@ -17,20 +17,20 @@ class RegisterForm(Form):
             Length(min=6, max=40),
         ],
     )
-    confirm = PasswordField("Repeat Password", [DataRequired()])
+    confirm = PasswordField("Repeat Password", validators=[DataRequired()])
     github_username = TextField("GitHub Username", validators=[DataRequired()])
     github_token = TextField("GitHub Token", validators=[DataRequired()])
 
 
 # Class to set the login form with the required variables
 class LoginForm(Form):
-    email = TextField("Email", [DataRequired()])
-    password = PasswordField("Password", [DataRequired()])
+    email = TextField("Email", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
 
 
 # Class to set the new project menu form with the required variables
 class MenuForm(Form):
     ID = TextField(
-        "Student ID Number", validators=[DataRequired(), Length(min=8, max=8)]
+        "Student ID Number", validators=[DataRequired(), Length(max=8)]
     )
-    project_name = TextField("Project Name", [DataRequired()])
+    project_name = TextField("Project Name", validators=[DataRequired()])
