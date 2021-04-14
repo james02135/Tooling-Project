@@ -62,13 +62,15 @@ def register():
 @auth.route("/register", methods=["POST"])
 def register_post():
 
-    name = request.form.get("name")
-    ID = request.form.get("ID")
-    email = request.form.get("email")
-    github_username = request.form.get("github_username")
-    github_token = request.form.get("github_token")
-    password = request.form.get("password")
-    confirm = request.form.get("confirm")
+    form = RegisterForm(request.form)
+    if form.validate_on_submit():
+        name = form.name.data
+        ID = form.ID.data
+        email = form.email.data
+        github_username = form.github_username.data
+        github_token = form.github_token.data
+        password = form.password.data
+        confirm = form.confirm.data
 
     # if the confirmation password doesn't match the password
     if not confirm == password:
@@ -95,6 +97,9 @@ def register_post():
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for("auth.login"))
+else:
+    flash("There was an error with the information provided")
+    return redirect(url_for("auth.register"))
 
 
 @auth.route("/menu")
