@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, EqualTo, Length
 class RegisterForm(Form):
     name = TextField("Name", validators=[DataRequired(), Length(min=6, max=100)])
     ID = TextField(
-        "Student ID Number", validators=[DataRequired(), Length(max=8)]
+        "Student ID Number", validators=[DataRequired(), Length(max=9)]
     )
     email = TextField("Email", validators=[DataRequired(), Length(min=6, max=100)])
     password = PasswordField(
@@ -31,6 +31,6 @@ class LoginForm(Form):
 # Class to set the new project menu form with the required variables
 class MenuForm(Form):
     ID = TextField(
-        "Student ID Number", validators=[DataRequired(), Length(max=8)]
+        "Student ID Number", validators=[DataRequired(), Length(max=9)]
     )
     project_name = TextField("Project Name", validators=[DataRequired()])

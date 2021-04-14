@@ -14,9 +14,9 @@ app = Flask(__name__)
 
 # creating the secret key
 secret_key = secrets.token_hex(16)
+app.config["SECRET_KEY"] = secret_key
 # protecting the app against Cross-Site Request Forgery (CSRF)
 csrf.init_app(app)
-app.config["SECRET_KEY"] = secret_key
 # setting the database for SQLAlchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///intool"
 # initialize the database
