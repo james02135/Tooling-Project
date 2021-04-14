@@ -22,4 +22,8 @@ $ flask run
 
 ### App will begin running locally on http://localhost:5000/
 
+## Navigate to the remote version
+
+### intool.tech
+
 
