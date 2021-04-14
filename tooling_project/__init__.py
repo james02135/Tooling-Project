@@ -1,11 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_wtf.csrf import CSRFProtect
+#from flask_wtf.csrf import CSRFProtect
 import secrets
 import os
 
-csrf = CSRFProtect()
+#csrf = CSRFProtect()
 db = SQLAlchemy()
 
 # Responsible for app creation
@@ -16,7 +16,7 @@ app = Flask(__name__)
 secret_key = secrets.token_hex(16)
 app.config["SECRET_KEY"] = secret_key
 # protecting the app against Cross-Site Request Forgery (CSRF)
-csrf.init_app(app)
+#csrf.init_app(app)
 # setting the database for SQLAlchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///intool"
 # initialize the database
