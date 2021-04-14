@@ -24,6 +24,6 @@ $ flask run
 
 ## Navigate to the remote version
 
-### intool.tech
+### http://intool.tech
 
 
