@@ -72,34 +72,34 @@ def register_post():
         password = form.password.data
         confirm = form.confirm.data
 
-    # if the confirmation password doesn't match the password
-    if not confirm == password:
-        flash("Passwords do not match.")
+        # if the confirmation password doesn't match the password
+        if not confirm == password:
+            flash("Passwords do not match.")
+            return redirect(url_for("auth.register"))
+        # check to see if the email is already being used
+        user = User.query.filter_by(email=email).first()
+
+        if user:  # if that email is found, redirect the user back to the register form
+            flash("Email address already in use.")
+            return redirect(url_for("auth.register"))
+
+        # if the entered password and confirm match, create a new user, and hash the password
+        new_user = User(
+            id=ID,
+            name=name,
+            email=email,
+            password=generate_password_hash(password, method="sha256"),
+            github_username=github_username,
+            github_token=github_token,
+        )
+
+        # add the new user to the database
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for("auth.login"))
+    else:
+        flash("There was an error with the information provided")
         return redirect(url_for("auth.register"))
-    # check to see if the email is already being used
-    user = User.query.filter_by(email=email).first()
-
-    if user:  # if that email is found, redirect the user back to the register form
-        flash("Email address already in use.")
-        return redirect(url_for("auth.register"))
-
-    # if the entered password and confirm match, create a new user, and hash the password
-    new_user = User(
-        id=ID,
-        name=name,
-        email=email,
-        password=generate_password_hash(password, method="sha256"),
-        github_username=github_username,
-        github_token=github_token,
-    )
-
-    # add the new user to the database
-    db.session.add(new_user)
-    db.session.commit()
-    return redirect(url_for("auth.login"))
-else:
-    flash("There was an error with the information provided")
-    return redirect(url_for("auth.register"))
 
 
 @auth.route("/menu")
