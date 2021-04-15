@@ -3,8 +3,13 @@
 {% block content %}
 
 <div class="page-header">
-  <h1>Welcome to Intool!</h1>
+  <h1>Welcome to Intool</h1>
 </div>
 <p class="lead">An easy way to create projects and connect with your lecturers </p>
+<div>
+  <h3>
+    If this is you're first time using this app, please visit the <a href=" {{ url_for('main.tutorial') }}">Tutorial Page</a> first.
+  </h3>
+</div>
 
 {% endblock %}
