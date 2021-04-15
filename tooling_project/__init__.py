@@ -21,7 +21,7 @@ else: # Running the app remotely via Heroku
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://oopkpkqfwdwnrr:6d760123525e8dd497ed0ce41d1c48b62bef9177febe2e689204d1e3920a2220@ec2-54-242-43-231.compute-1.amazonaws.com:5432/dcn2936eotsqsl"
 
 # avoid SQLAlchemy warnings
-app.confiG["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 # initialize the database
