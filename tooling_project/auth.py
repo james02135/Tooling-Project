@@ -38,19 +38,25 @@ def login():
 
 @auth.route("/login", methods=["POST"])
 def login_post():
-    email = request.form.get("email")
-    password = request.form.get("password")
+    form = LoginForm(request.form)
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
 
-    # if this returns a user, then the email exists in the database
-    user = User.query.filter_by(email=email).first()
+        # if this returns a user, then the email exists in the database
+        user = User.query.filter_by(email=email).first()
 
-    if not user or not check_password_hash(user.password, password):
-        flash("Please check you login details and try again")
+        if not user or not check_password_hash(user.password, password):
+            flash("Please check you login details and try again")
+            return redirect(url_for("auth.login"))
+
+        # If both checks pass, this is an authenticated user
+        login_user(user)
+        return redirect(url_for("main.dashboard"))
+    else:
+        print(form.errors)
+        flash("There was an error with the information provided")
         return redirect(url_for("auth.login"))
-
-    # If both checks pass, this is an authenticated user
-    login_user(user)
-    return redirect(url_for("main.dashboard"))
 
 
 @auth.route("/register")
@@ -63,7 +69,6 @@ def register():
 def register_post():
     form = RegisterForm(request.form)
     if form.validate_on_submit():
-
         name = form.name.data
         ID = form.ID.data
         email = form.email.data
