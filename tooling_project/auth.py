@@ -40,24 +40,29 @@ def menu():
 @auth.route("/menu", methods=["POST"])
 @login_required
 def menu_post():
-
-    ID = request.form.get("ID")
-    project_name = request.form.get("project_name")
-    # Retrieve the User from the database
-    user = User.query.filter_by(id=ID).first()
-    # Get the User's GitHub token
-    token = user.github_token
-    # Send the POST request to the GitHub api
-    url = "https://api.github.com/user/repos"
-    payload = {"name": project_name, "description": "for school", "auto_init": "true"}
-    headers = {
-        "Authorization": f"token {token}",
-        "Content-Type": "text/plain",
-        "Cookie": "_octo=GH1.1.1061749589.1617981576; logged_in=no",
-    }
-    response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
-    print(response.text)
-    return redirect(url_for("auth.dashboard"))
+    form = MenuForm(request.form)
+    if form.validate_on_submit():
+        ID = form.ID.data
+        project_name = form.project_name.data
+        # Retrieve the User from the database
+        user = User.query.filter_by(id=ID).first()
+        # Get the User's GitHub token
+        token = user.github_token
+        # Send the POST request to the GitHub api
+        url = "https://api.github.com/user/repos"
+        payload = {"name": project_name, "description": "for school", "auto_init": "true"}
+        headers = {
+            "Authorization": f"token {token}",
+            "Content-Type": "text/plain",
+            "Cookie": "_octo=GH1.1.1061749589.1617981576; logged_in=no",
+        }
+        response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+        print(response.text)
+        return redirect(url_for("auth.dashboard"))
+    else:
+        print(form.errors)
+        flash("There was an error with the information provided")
+        return redirect(url_for("auth.dashboard"))
 
 
 @auth.route("/dashboard")
