@@ -61,9 +61,9 @@ def register():
 
 @auth.route("/register", methods=["POST"])
 def register_post():
-
     form = RegisterForm(request.form)
     if form.validate_on_submit():
+
         name = form.name.data
         ID = form.ID.data
         email = form.email.data
@@ -72,13 +72,8 @@ def register_post():
         password = form.password.data
         confirm = form.confirm.data
 
-        # if the confirmation password doesn't match the password
-        if not confirm == password:
-            flash("Passwords do not match.")
-            return redirect(url_for("auth.register"))
         # check to see if the email is already being used
         user = User.query.filter_by(email=email).first()
-
         if user:  # if that email is found, redirect the user back to the register form
             flash("Email address already in use.")
             return redirect(url_for("auth.register"))
@@ -98,6 +93,7 @@ def register_post():
         db.session.commit()
         return redirect(url_for("auth.login"))
     else:
+        print(form.errors)
         flash("There was an error with the information provided")
         return redirect(url_for("auth.register"))
 
