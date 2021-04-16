@@ -36,7 +36,7 @@ db.init_app(app)
 
 # Login Manager authenticates the user
 login_manager = LoginManager()
-login_manager.login_view = "auth.login"
+login_manager.login_view = "main.login"
 login_manager.init_app(app)
 
 # import the user model

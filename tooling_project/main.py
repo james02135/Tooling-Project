@@ -17,7 +17,7 @@ import requests
 import json
 from logging import Formatter, FileHandler
 from .models import User
-from .forms import *
+from .forms import RegisterForm, LoginForm
 from . import db
 
 # All routes that don't need authentication
