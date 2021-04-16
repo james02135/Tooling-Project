@@ -1,29 +1,31 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
 import psycopg2
 import secrets
 
 app = Flask(__name__)
 
-ENV = 'prod'
+ENV = "prod"
 
 # creating the secret key
 secret_key = secrets.token_hex(16)
 app.config["SECRET_KEY"] = secret_key
-app.config['SESSION_COOKIE_SECURE'] = False
+app.config["SESSION_COOKIE_SECURE"] = False
 
 # protecting the app from Cross-Site Request Forgeries (CSRF)
 csrf = CSRFProtect(app)
 
-if ENV == 'dev': # If running the app locally
+if ENV == "dev":  # If running the app locally
     app.debug = True
     # setting the database for SQLAlchemy
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///intool"
-else: # Running the app remotely via Heroku
+else:  # Running the app remotely via Heroku
     app.debug = False
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://oopkpkqfwdwnrr:6d760123525e8dd497ed0ce41d1c48b62bef9177febe2e689204d1e3920a2220@ec2-54-242-43-231.compute-1.amazonaws.com:5432/dcn2936eotsqsl"
+    app.config[
+        "SQLALCHEMY_DATABASE_URI"
+    ] = "postgres://oopkpkqfwdwnrr:6d760123525e8dd497ed0ce41d1c48b62bef9177febe2e689204d1e3920a2220@ec2-54-242-43-231.compute-1.amazonaws.com:5432/dcn2936eotsqsl"
 
 # avoid SQLAlchemy warnings
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -48,10 +50,12 @@ def load_user(user_id):
 
 # blueprint for authenticated routes in the app
 from .auth import auth as auth_blueprint
+
 app.register_blueprint(auth_blueprint)
 
 # blueprint for the non-authenticated routes in the app
 from .main import main as main_blueprint
+
 app.register_blueprint(main_blueprint)
 
 if __name__ == "__main__":
