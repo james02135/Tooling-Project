@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
 import psycopg2
 import secrets
@@ -11,6 +12,9 @@ ENV = 'prod'
 # creating the secret key
 secret_key = secrets.token_hex(16)
 app.config["SECRET_KEY"] = secret_key
+
+# protecting the app from Cross-Site Request Forgeries (CSRF)
+csrf = CSRFProtect(app)
 
 if ENV == 'dev': # If running the app locally
     app.debug = True
