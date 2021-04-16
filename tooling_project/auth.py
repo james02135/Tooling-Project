@@ -96,7 +96,7 @@ def register_post():
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for("auth.login"))
+        return redirect(url_for("main.home"))
     else:
         print(form.errors)
         flash("There was an error with the information provided")
