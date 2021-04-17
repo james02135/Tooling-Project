@@ -36,7 +36,7 @@ db.init_app(app)
 
 # Login Manager authenticates the user
 login_manager = LoginManager()
-login_manager.login_view = "main.login"
+login_manager.login_view = "auth.login"
 login_manager.init_app(app)
 
 # import the user model
@@ -44,9 +44,8 @@ from .models import User
 
 # loads the user found via the user's ID in the database
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
+def load_user(id):
+    return User.query.get(int(id))
 
 # blueprint for authenticated routes in the app
 from .auth import auth as auth_blueprint

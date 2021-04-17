@@ -6,7 +6,7 @@
     <h3 class="form-heading">Login <a href="{{ url_for('main.home') }}" title="Back to homepage"><em class="fa fa-home pull-right"></em></a></h3>
     {{ form.email(class_ = 'form-control first-input id="email"', placeholder = form.email.label.text, required = true, autofocus = true) }}
     {{ form.password(class_ = 'form-control last-input id="password"', placeholder = form.password.label.text, required = true) }}
-    <p class="pull-right"><a href="{{ url_for('main.register') }}">Register</a></p>
+    <p class="pull-right"><a href="{{ url_for('auth.register') }}">Register</a></p>
     <input type="submit" value="Submit" class="btn btn-primary btn-lg btn-block">
   </form>
 {% endblock %}
