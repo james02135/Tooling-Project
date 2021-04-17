@@ -2,7 +2,6 @@
 {% block title %}Register{% endblock %}
 {% block content %}
   <form method="post" class="form">
-    {{ form.csrf_token }}
     <h3 class="form-heading">Register <a href="{{ url_for('main.home') }}" title="Back to homepage"><em class="fa fa-home pull-right"></em></a></h3>
     <div>
       <p>
