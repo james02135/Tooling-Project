@@ -106,14 +106,12 @@ def login_post():
 
 
 @auth.route("/menu")
-@login_required
 def menu():
     form = MenuForm(request.form)
     return render_template("menu.html", form=form)
 
 
 @auth.route("/menu", methods=["POST"])
-@login_required
 def menu_post():
     form = MenuForm(request.form)
     if form.validate_on_submit():
