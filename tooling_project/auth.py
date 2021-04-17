@@ -17,7 +17,7 @@ import requests
 import json
 from logging import Formatter, FileHandler
 from .models import User
-from .forms import MenuForm
+from .forms import MenuForm, RegisterForm, LoginForm
 from . import db
 
 
@@ -28,6 +28,80 @@ auth = Blueprint("auth", __name__)
 # ----------------------------------------------------------------------------#
 # Routes
 # ----------------------------------------------------------------------------#
+
+
+@auth.route("/register")
+def register():
+    form = RegisterForm(request.form)
+    return render_template("register.html", form=form)
+
+
+@auth.route("/register", methods=["POST"])
+def register_post():
+    form = RegisterForm(request.form)
+    if form.validate_on_submit():
+        name = form.name.data
+        ID = form.ID.data
+        email = form.email.data
+        github_username = form.github_username.data
+        github_token = form.github_token.data
+        password = form.password.data
+        confirm = form.confirm.data
+
+        # check to see if the email is already being used
+        user = User.query.filter_by(email=email).first()
+        if user:  # if that email is found, redirect the user back to the register form
+            flash("Email address already in use.")
+            return redirect(url_for("auth.register"))
+
+        # if the entered password and confirm match, create a new user, and hash the password
+        new_user = User(
+            id=ID,
+            name=name,
+            email=email,
+            password=generate_password_hash(password, method="sha256"),
+            github_username=github_username,
+            github_token=github_token,
+        )
+
+        # add the new user to the database
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for("main.home"))
+    else:
+        print(form.errors)
+        flash("There was an error with the information provided")
+        return redirect(url_for("auth.register"))
+
+
+@auth.route("/login")
+def login():
+    form = LoginForm(request.form)
+    return render_template("login.html", form=form)
+
+
+@auth.route("/login", methods=["POST"])
+def login_post():
+    form = LoginForm(request.form)
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+
+        # if this returns a user, then the email exists in the database
+        user = User.query.filter_by(email=email).first()
+
+        if not user or not check_password_hash(user.password, password):
+            flash("Please check you login details and try again")
+            return redirect(url_for("auth.login"))
+
+        # If both checks pass, this is an authenticated user
+        login_user(user)
+        flash('Logged in successfully')
+        return redirect(url_for("main.dashboard"))
+    else:
+        print(form.errors)
+        flash("There was an error with the information provided")
+        return redirect(url_for("auth.login"))
 
 
 @auth.route("/menu")
@@ -58,18 +132,11 @@ def menu_post():
         }
         response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
         print(response.text)
-        return redirect(url_for("auth.dashboard"))
+        return redirect(url_for("main.dashboard"))
     else:
         print(form.errors)
         flash("There was an error with the information provided")
-        return redirect(url_for("auth.dashboard"))
-
-
-@auth.route("/dashboard")
-@login_required
-def dashboard():
-    # Name and ID are used as variable in the html page
-    return render_template("dashboard.html", name=current_user.name, ID=current_user.id)
+        return redirect(url_for("main.dashboard"))
 
 
 @auth.route("/logout")
