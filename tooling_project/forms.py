@@ -1,9 +1,9 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired, InputRequired, EqualTo, Length, Email
 
 # Class to set the register form with the required variables
-class RegisterForm(Form):
+class RegisterForm(FlaskForm):
     name = StringField(
         "Name",
         validators=[
@@ -50,12 +50,12 @@ class RegisterForm(Form):
 
 
 # Class to set the login form with the required variables
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     email = StringField("Email", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
 
 
 # Class to set the new project menu form with the required variables
-class MenuForm(Form):
+class MenuForm(FlaskForm):
     ID = StringField("Student ID Number", validators=[DataRequired(), Length(max=8)])
     project_name = StringField("Project Name", validators=[InputRequired()])
