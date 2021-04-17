@@ -23,6 +23,8 @@ from . import db
 
 # All routes that require authentication
 auth = Blueprint("auth", __name__)
+error_message = "There was an error with the information provided"
+dashboard = "main.dashboard"
 
 
 # ----------------------------------------------------------------------------#
@@ -46,7 +48,6 @@ def register_post():
         github_username = form.github_username.data
         github_token = form.github_token.data
         password = form.password.data
-        confirm = form.confirm.data
 
         # check to see if the email is already being used
         user = User.query.filter_by(email=email).first()
@@ -70,7 +71,7 @@ def register_post():
         return redirect(url_for("main.home"))
     else:
         print(form.errors)
-        flash("There was an error with the information provided")
+        flash(error_message)
         return redirect(url_for("auth.register"))
 
 
@@ -97,10 +98,10 @@ def login_post():
         # If both checks pass, this is an authenticated user
         login_user(user)
         flash('Logged in successfully')
-        return redirect(url_for("main.dashboard"))
+        return redirect(url_for(dashboard))
     else:
         print(form.errors)
-        flash("There was an error with the information provided")
+        flash(error_message)
         return redirect(url_for("auth.login"))
 
 
@@ -132,11 +133,11 @@ def menu_post():
         }
         response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
         print(response.text)
-        return redirect(url_for("main.dashboard"))
+        return redirect(url_for(dashboard))
     else:
         print(form.errors)
         flash("There was an error with the information provided")
-        return redirect(url_for("main.dashboard"))
+        return redirect(url_for(dashboard))
 
 
 @auth.route("/logout")

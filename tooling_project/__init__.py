@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_wtf.csrf import CSRFProtect
 import psycopg2
 import secrets
 
@@ -13,9 +12,6 @@ ENV = "prod"
 secret_key = secrets.token_hex(16)
 app.config["SECRET_KEY"] = secret_key
 app.config["SESSION_COOKIE_SECURE"] = False
-
-# protecting the app from Cross-Site Request Forgeries (CSRF)
-csrf = CSRFProtect(app)
 
 if ENV == "dev":  # If running the app locally
     app.debug = True
@@ -44,8 +40,11 @@ from .models import User
 
 # loads the user found via the user's ID in the database
 @login_manager.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+def load_user(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    if user:
+        return user
+    return None
 
 # blueprint for authenticated routes in the app
 from .auth import auth as auth_blueprint
