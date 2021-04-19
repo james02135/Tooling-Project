@@ -12,19 +12,18 @@ ENV = "prod"
 # protecting the app from Cross-Site Request Forgeries (CSRF)
 csrf = CSRFProtect(app)
 
-# creating the secret key
-secret_key = secrets.token_hex(16)
-app.config["SECRET_KEY"] = secret_key
-app.config["SESSION_COOKIE_SECURE"] = False
-
-
-
 if ENV == "dev":  # If running the app locally
+    # creating the secret key
+    secret_key = secrets.token_hex(16)
+    app.config["SECRET_KEY"] = secret_key
+    app.config["SESSION_COOKIE_SECURE"] = False
     app.debug = True
     # setting the database for SQLAlchemy
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///intool"
 else:  # Running the app remotely via Heroku
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
     app.debug = False
+    app.config["SESSION_COOKIE_SECURE"] = True
     app.config[
         "SQLALCHEMY_DATABASE_URI"
     ] = "postgres://oopkpkqfwdwnrr:6d760123525e8dd497ed0ce41d1c48b62bef9177febe2e689204d1e3920a2220@ec2-54-242-43-231.compute-1.amazonaws.com:5432/dcn2936eotsqsl"
