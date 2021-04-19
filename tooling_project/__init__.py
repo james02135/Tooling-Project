@@ -21,8 +21,9 @@ if ENV == "dev":  # If running the app locally
     # setting the database for SQLAlchemy
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///intool"
 else:  # Running the app remotely via Heroku
-    os.environ.get("SECRET_KEY")
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
     app.debug = False
+    app.config["SESSION_COOKIE_SECURE"] = True
     app.config[
         "SQLALCHEMY_DATABASE_URI"
     ] = "postgres://oopkpkqfwdwnrr:6d760123525e8dd497ed0ce41d1c48b62bef9177febe2e689204d1e3920a2220@ec2-54-242-43-231.compute-1.amazonaws.com:5432/dcn2936eotsqsl"
