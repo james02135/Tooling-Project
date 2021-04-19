@@ -4,10 +4,11 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 import psycopg2
 import secrets
+import os
 
 app = Flask(__name__)
 
-ENV = "prod"
+ENV = os.environ.get("ENV") or "prod"
 
 # protecting the app from Cross-Site Request Forgeries (CSRF)
 csrf = CSRFProtect(app)
