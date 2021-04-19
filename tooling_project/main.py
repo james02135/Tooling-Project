@@ -29,6 +29,7 @@ def tutorial():
 
 
 @main.route("/dashboard")
+@login_required
 def dashboard():
     # Name and ID are used as variable in the html page
     return render_template("dashboard.html", name=current_user.name, ID=current_user.id)
