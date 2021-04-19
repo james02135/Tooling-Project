@@ -41,6 +41,7 @@ def register():
 @auth.route("/register", methods=["POST"])
 def register_post():
     form = RegisterForm(request.form)
+    print(request.form)
     if form.validate_on_submit():
         name = form.name.data
         ID = form.ID.data
@@ -68,6 +69,7 @@ def register_post():
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
+        print(request.data)
         return redirect(url_for("main.home"))
     else:
         print(form.errors)
@@ -84,6 +86,7 @@ def login():
 @auth.route("/login", methods=["POST"])
 def login_post():
     form = LoginForm(request.form)
+    print(request.form)
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
@@ -97,6 +100,7 @@ def login_post():
 
         # If both checks pass, this is an authenticated user
         login_user(user)
+        print(request.data)
         flash('Logged in successfully')
         return redirect(url_for(dashboard))
     else:
@@ -106,14 +110,17 @@ def login_post():
 
 
 @auth.route("/menu")
+@login_required
 def menu():
     form = MenuForm(request.form)
     return render_template("menu.html", form=form)
 
 
 @auth.route("/menu", methods=["POST"])
+@login_required
 def menu_post():
     form = MenuForm(request.form)
+    print(request.form)
     if form.validate_on_submit():
         ID = form.ID.data
         project_name = form.project_name.data
@@ -130,6 +137,7 @@ def menu_post():
             "Cookie": "_octo=GH1.1.1061749589.1617981576; logged_in=no",
         }
         response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+        print(request.data)
         print(response.text)
         return redirect(url_for(dashboard))
     else:
