@@ -24,6 +24,6 @@ $ flask run
 
 ## Navigate to the remote version
 
-### http://intool.tech
+### https://intool-project.herokuapp.com/
 
 
