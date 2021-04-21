@@ -6,7 +6,15 @@ from flask_login import login_required, current_user
 
 
 # All routes that don't need authentication
+
+
+# ----------------------------------------------------------------------------#
+# Local Variables
+# ----------------------------------------------------------------------------#
+
+
 main = Blueprint("main", __name__)
+
 
 # ----------------------------------------------------------------------------#
 # Routes

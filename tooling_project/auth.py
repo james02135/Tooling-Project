@@ -22,6 +22,13 @@ from . import db
 
 
 # All routes that require authentication
+
+
+# ----------------------------------------------------------------------------#
+# Local Variables
+# ----------------------------------------------------------------------------#
+
+
 auth = Blueprint("auth", __name__)
 error_message = "There was an error with the information provided"
 dashboard = "main.dashboard"

@@ -1,0 +1,9 @@
+language: python
+python:
+- '3.8'
+install:
+- pip install -r requirements.txt
+notifications:
+  email:
+    - 20079103@mail.wit.ie
+    - james02135@hotmail.com
