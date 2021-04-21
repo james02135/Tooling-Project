@@ -10,4 +10,5 @@ notifications:
   email:
     - 20079103@mail.wit.ie
     - james02135@hotmail.com
-script: pytest
+script: 
+  - pytest tooling_project_tests/tests/functional
