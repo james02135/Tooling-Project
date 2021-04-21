@@ -11,4 +11,4 @@ notifications:
     - 20079103@mail.wit.ie
     - james02135@hotmail.com
 script: 
-  - na
+  - echo "no scripts"
