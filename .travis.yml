@@ -1,9 +1,13 @@
 language: python
 python:
 - '3.8'
+- "nightly"  # nightly build
+# Command to install the dependencies
 install:
 - pip install -r requirements.txt
+# Send build notifications to the following email addresses
 notifications:
   email:
     - 20079103@mail.wit.ie
     - james02135@hotmail.com
+script: pytest
