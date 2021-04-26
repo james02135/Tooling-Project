@@ -29,6 +29,3 @@ class User(UserMixin, db.Model):
         self.password = password
         self.github_username = github_username
         self.github_token = github_token
-
-    # def __repr__(self):
-    #     return "<id {}>".format(self.id)
