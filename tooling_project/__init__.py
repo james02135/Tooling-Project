@@ -52,12 +52,12 @@ def load_user(user_id):
         return user
     return None
 
-# blueprint for authenticated routes in the app
+# blueprint for form routes in the app
 from .auth import auth as auth_blueprint
 
 app.register_blueprint(auth_blueprint)
 
-# blueprint for the non-authenticated routes in the app
+# blueprint for the page routes in the app
 from .main import main as main_blueprint
 
 app.register_blueprint(main_blueprint)

@@ -1,5 +1,6 @@
 import pytest
 from tooling_project import app
+from flask_login import login_user
 
 
 @pytest.fixture
@@ -10,14 +11,3 @@ def client():
     app.config['WTF_CSRF_ENABLED'] = False
     with app.test_client() as client:
         yield client
-
-
-@pytest.fixture
-def dummy_user():
-    id = '11111111'
-    name = 'Dummy'
-    email = 'dummy@example.com'
-    password = 'dummy_password'
-    github_username = 'dummy'
-    github_token = 'dummy'
-    yield 
