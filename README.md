@@ -14,6 +14,8 @@ $ source auth/bin/activate
 
 $ pip install -r requirements.txt
 
+$ export ENV=dev
+
 $ export FLASK_APP=tooling_project
 
 $ export FLASK_DEBUG=1
