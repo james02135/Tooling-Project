@@ -51,10 +51,13 @@
           <a class="navbar-brand">Intool</a>
         </div>
         <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li {% if request.endpoint == 'home' %} class="active" {% endif %}><a href="{{ url_for('main.home') }}">Home</a></li>
+            <li {% if request.endpoint == 'about' %} class="active" {% endif %}><a href="{{ url_for('main.about') }}">About</a></li>
+            <li {% if request.endpoint == 'tutorial' %} class="active" {% endif %}><a href="{{ url_for('main.tutorial') }}">Tutorial</a></li>
+            <li {% if request.endpoint == 'source_code' %} class="active" {% endif %}><a href="https://github.com/james02135/Tooling-Project" target="_blank" rel="noopener noreferrer">Source Code</a></li>
+          </ul>
           <ul class="nav navbar-nav pull-right">
-            <li class="nav-item">
-              <a>{{ name }} - {{ ID }}</a> 
-            </li>
             <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -63,38 +66,119 @@
 
     <!-- Begin page content -->
     <main id="content" role="main" class="container">
-
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-block alert-error fade in">
-              <a class="close" data-dismiss="alert">&times;</a>
-              {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-
       <div class="page-header">
-        <h1>Welcome to Your Personal Dashboard!</h1>
+        <h1>Dashboard for {{name}} - {{ID}}</h1>
       </div>
       <div class="container">
         <h2>Start a New Project</h2>
-        <a href="{{ url_for('auth.menu') }}" class="btn btn-default" role="button">New Project</a>
-      </div>
-      <div class="container">
-        <h2>View Current Projects</h2>
-        <a href="{{ url_for('auth.menu') }}" class="btn btn-default" role="button">Projects</a>
-      </div>
+          <br>
+        <h4>New Project Checklist</h4>
+          <br>
+        <ul>
+          <li>
+            Did you create a new GitHub profile?
+          </li>
+          <li>
+            Did you create a new GitHub Token and save it somewhere?
+          </li>
+        </ul>
+          <br>
+        <div>
+          <h5>
+            If 'Nope' to either of the above, go back to the <a href=" {{ url_for('main.tutorial') }}">Tutorial Page</a> first
+          </h5>
+        </div>
+        <br>
+        <h4>
+          Let's start creating a new project framework!
+        </h4>
+        <br>
+        <h5>
+          There are 3 things to do - 
+        </h5>
+        
+        <ol>
+          <li>
+            Create a New Repo
+          </li>
+          <li>
+            Get Sonarcloud connected to the repo
+          </li>
+          <li>
+            Get Travis connected to the repo
+          </li>
+        </ol>
+        <br>
+        <div>
+          <h5>
+            First, Let's create the new repo
+          </h5>
+          <br>
+          <a href="{{ url_for('auth.menu') }}" class="btn btn-default" role="button">Create New Repo</a>
+        </div>
+          <br>
+        
+        
+          <h5>
+            Second, Let's get Sonarcloud installed!
+          </h5>
+          <ul>
+            <li>
+              Navigate to <a href="https://sonarcloud.io/">Sonarcloud</a> and click on "Login" and choose, "Login With Github"
+            </li>
+            <li>
+              Follow the instructions to analyse your project
+            </li>
+            <li>
+              Once that "webhook" is completed, everytime you push code to your master/main branch, sonarcloud will analyse it!
+            </li>
+          </ul>
+          <br>
+          <h5>
+            Third, Let's get Travis installed!
+          </h5>
+          <ul>
+            <li>
+              This is similar to Sonarcloud, but requires a configuration file written in yaml
+            </li>
+            <li>
+              Navigate to <a href="https://travis-ci.com/"> Travis-CI</a> and click on "Login" and choose, "Login With Github"
+            </li>
+            <li>
+              Follow the instructions to install the Travis-CI webhook
+            </li>
+            <li>
+              Then, follow the instructions <a href="https://docs.travis-ci.com/user/tutorial/#to-get-started-with-travis-ci-using-github">Here</a> to write the config file in your project
+            </li>
+            <li>
+              Click on this <a href="https://github.com/james02135/Tooling-Project/blob/master/.travis.yml">LINK</a> to see the travis config file in this app's source code and model yours after it
+            </li>
+            <li>
+              What you want to do, is enter your student email address, and your lecturer's email address in the notifications section.
+            </li>
+            <li>
+              HINT - The Travis build will fail if the "script" attribute is not set. The "script" attribute sets the testing path for Travis, and if there are no tests, the build will fail.
+              Copy the "script" attribute from the source code.
+            </li>
+          </ul>
+          <br>
+          <h4>
+            You're Done! Good luck in your development!
+          </h4>
+          <br>
+        
+      </div> 
+
+  
       
     </main>
 
   </div>
 
   <div id="footer">
+    <br>
     <div class="container">
-      <p>Intool developed by James Richardson</p>
-      {% block footer %}{% endblock %}
+      {% block footer %}Intool 2021 - James Richardson{% endblock %}
     </div>
   </div>
 
@@ -113,3 +197,4 @@
 
 </body>
 </html>
+   
