@@ -108,7 +108,7 @@ def login_post():
         # If both checks pass, this is an authenticated user
         login_user(user)
         print(request.data)
-        flash('Logged in successfully')
+        flash("Logged in successfully")
         return redirect(url_for(dashboard))
     else:
         print(form.errors)
@@ -137,13 +137,19 @@ def menu_post():
         token = user.github_token
         # Send the POST request to the GitHub api
         url = "https://api.github.com/user/repos"
-        payload = {"name": project_name, "description": "for school", "auto_init": "true"}
+        payload = {
+            "name": project_name,
+            "description": "for school",
+            "auto_init": "true",
+        }
         headers = {
             "Authorization": f"token {token}",
             "Content-Type": "text/plain",
             "Cookie": "_octo=GH1.1.1061749589.1617981576; logged_in=no",
         }
-        response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+        response = requests.request(
+            "POST", url, headers=headers, data=json.dumps(payload)
+        )
         print(request.data)
         print(response.text)
         return redirect(url_for(dashboard))

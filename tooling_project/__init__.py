@@ -52,6 +52,7 @@ def load_user(user_id):
         return user
     return None
 
+
 # blueprint for form routes in the app
 from .auth import auth as auth_blueprint
 

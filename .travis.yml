@@ -8,7 +8,10 @@ install:
 # Send build notifications to the following email addresses
 notifications:
   email:
-    - 20079103@mail.wit.ie
-    - james02135@hotmail.com
+    recipients:
+      - student@example.com
+      - lecturer@example.com
+    on_success: always
+    on_failure: always 
 script: 
   - echo "no scripts"

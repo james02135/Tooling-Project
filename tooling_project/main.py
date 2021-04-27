@@ -1,7 +1,4 @@
-from flask import (
-    Blueprint,
-    render_template
-)
+from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 
 
@@ -34,6 +31,11 @@ def about():
 @main.route("/tutorial")
 def tutorial():
     return render_template("tutorial.html")
+
+
+@main.route("/how")
+def how():
+    return render_template("how.html")
 
 
 @main.route("/dashboard")
