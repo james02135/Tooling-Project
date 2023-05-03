@@ -1,5 +1,5 @@
 Fabric==1.8.2
-Flask==1.0
+Flask==2.3.2
 Flask-SQLAlchemy==1.0
 gunicorn==19.5.0
 Jinja2==2.11.3
