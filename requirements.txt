@@ -19,7 +19,7 @@ Flask-Migrate==2.5.2
 Flask-SQLAlchemy==2.4.1
 Flask-WTF==0.14.3
 gunicorn==20.1.0
-idna==2.10
+idna==3.7
 iniconfig==1.1.1
 invoke==1.5.0
 itsdangerous==1.1.0
